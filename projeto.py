@@ -24,3 +24,6 @@ class No:
                     atual = atual.proximo
                 atual.proximo = novo_filme
             print("Filme incluído com sucesso!")
+
+        def Excluir(self, titulo):
+            pass
