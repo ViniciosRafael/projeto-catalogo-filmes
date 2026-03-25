@@ -27,3 +27,5 @@ class No:
 
         def Excluir(self, titulo):
             pass
+        def Pesquisar (self, titulo, diretor, ano, genero)
+            pass
