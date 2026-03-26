@@ -26,6 +26,27 @@ class No:
             print("Filme incluído com sucesso!")
 
         def Excluir(self, titulo):
-            pass
+            atual = self.primeiro
+            anterior = None
+            while atual is not None:
+                if atual.titulo == titulo:
+                    if anterior is None:
+                        self.primeiro = atual.proximo
+                    else:
+                        anterior.proximo = atual.proximo
+                    print("Filme excluído com sucesso!")
+                    return
+                anterior = atual
+                atual = atual.proximo
+            print("Filme não encontrado.")
+
         def Pesquisar (self, titulo, diretor, ano, genero):
-            pass
+            atual = self.primeiro
+            while atual is not None:
+                if (atual.titulo == titulo and atual.diretor == diretor and 
+                    atual.ano == ano and atual.genero == genero):
+                    print("Filme encontrado:")
+                    atual.mostrar_no()
+                    return
+                atual = atual.proximo
+            print("Filme não encontrado.")
