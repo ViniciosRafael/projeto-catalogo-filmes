@@ -50,3 +50,7 @@ class No:
                     return
                 atual = atual.proximo
             print("Filme não encontrado.")
+        
+        def Relatorio(self):
+            pass
+        
