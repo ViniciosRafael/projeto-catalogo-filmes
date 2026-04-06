@@ -23,7 +23,7 @@ class CatalogoFilmes:
         # Inicialmente a lista está vazia
         self.primeiro = None
 
-    def povoar_catalogo(catalogo, quantidade=1000):
+    def povoar_catalogo(self, quantidade=1000):
         print(f"Povoando o catálogo com {quantidade} filmes...")
         for i in range(1, quantidade + 1):
             titulo = f"Filme Exemplo {i}"
@@ -31,7 +31,7 @@ class CatalogoFilmes:
             ano = str(1900 + (i % 125))  # Gera anos variados entre 1900 e 2025
             genero = "Gênero de Teste"
             
-            catalogo.Incluir(titulo, diretor, ano, genero)
+            self.Incluir(titulo, diretor, ano, genero)
         print("\nCarga de dados finalizada!")
 
     # Método para incluir um novo filme no final da lista
