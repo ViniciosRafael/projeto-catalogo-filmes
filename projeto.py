@@ -131,6 +131,7 @@ def menu():
 
     # Loop infinito até o usuário sair
     while True:
+        
         print("\n" + "=" * 40)
         print("      CATÁLOGO DE FILMES")
         print("=" * 40)
