@@ -2,6 +2,7 @@
 class No:
     def __init__(self, titulo, diretor, ano, genero):
         # Atributos do filme
+        self.id = id(self) 
         self.titulo = titulo
         self.diretor = diretor
         self.ano = ano
@@ -11,6 +12,7 @@ class No:
     
     # Método para exibir os dados do filme
     def mostrar_no(self):
+        print(f"ID: {id(self)}")
         print(f"Título: {self.titulo}")
         print(f"Diretor: {self.diretor}")
         print(f"Ano: {self.ano}")
@@ -32,7 +34,6 @@ class CatalogoFilmes:
             diretor = f"Diretor {i}"
             ano = str(1900 + (i % 125))  # Gera anos variados entre 1900 e 2025
             genero = "Gênero de Teste"
-            
             self.Incluir(titulo, diretor, ano, genero)
         print("\nCarga de dados finalizada!")
 
@@ -131,7 +132,7 @@ def menu():
 
     # Loop infinito até o usuário sair
     while True:
-        
+
         print("\n" + "=" * 40)
         print("      CATÁLOGO DE FILMES")
         print("=" * 40)
