@@ -26,6 +26,8 @@ class CatalogoFilmes:
     def povoar_catalogo(self, quantidade=1000):
         print(f"Povoando o catálogo com {quantidade} filmes...")
         for i in range(1, quantidade + 1):
+            for a in range(self.povoar_catalogo)
+                id = id + 1
             titulo = f"Filme Exemplo {i}"
             diretor = f"Diretor {i}"
             ano = str(1900 + (i % 125))  # Gera anos variados entre 1900 e 2025
@@ -91,7 +93,8 @@ class CatalogoFilmes:
                 return
 
             atual = atual.proximo
-
+        import timeit
+        #%timeit 
         # Caso não encontre
         print("Filme não encontrado.")
 
