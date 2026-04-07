@@ -26,7 +26,7 @@ class CatalogoFilmes:
     def povoar_catalogo(self, quantidade=1000):
         print(f"Povoando o catálogo com {quantidade} filmes...")
         for i in range(1, quantidade + 1):
-            for a in range(self.povoar_catalogo)
+            for a in range(1000):
                 id = id + 1
             titulo = f"Filme Exemplo {i}"
             diretor = f"Diretor {i}"
