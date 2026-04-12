@@ -73,6 +73,8 @@ class CatalogoFilmes:
             # Liga o último nó ao novo filme
             atual.proximo = novo_filme
 
+        self.hash.inserir(novo_filme.id, novo_filme)
+
         print("Filme incluído com sucesso!")
 
     # Método para excluir um filme pelo título e diretor
@@ -90,6 +92,8 @@ class CatalogoFilmes:
                 else:
                     # "Pula" o nó atual, removendo-o da lista
                     anterior.proximo = atual.proximo
+
+                self.hash.remover(atual.id)
 
                 print("Filme excluído com sucesso!")
                 return
@@ -196,8 +200,8 @@ def menu():
         
         elif opcao == "5":
             print("\n--- FUNÇÃO HASH ---")
-            id = input("Digite o ID do filme para buscar: ").strip()
-            no = catalogo.buscar(int(id))
+            filme_id = input("Digite o ID do filme para buscar: ").strip()
+            no = catalogo.hash.buscar(int(filme_id))
             if no is not None:
                 print(f"Filme encontrado: {no.titulo}")
             else:
