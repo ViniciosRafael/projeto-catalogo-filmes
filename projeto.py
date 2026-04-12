@@ -155,7 +155,8 @@ def menu():
 
     # Loop infinito até o usuário sair
     while True:
-
+        catalogo = CatalogoFilmes()
+        catalogo.povoar_catalogo(1000)
         print("\n" + "=" * 40)
         print("      CATÁLOGO DE FILMES")
         print("=" * 40)
