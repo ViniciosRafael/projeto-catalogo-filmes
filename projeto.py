@@ -24,6 +24,27 @@ class CatalogoFilmes:
     def __init__(self):
         # Inicialmente a lista está vazia
         self.primeiro = None
+    class TabelaHash:
+        def __init__(self, tamanho):               # Tabela hash que mapeia os valores para endereços de memória dos nós.
+            self.tamanho = tamanho
+            self.tabela = [None] * tamanho           # Inicializa a tabela com vazios.
+
+    def funcao_hash(self, valor):
+        return int(valor) % self.tamanho         # Função hash de resto inteiro que calcula o índice baseado no valor.
+
+    def inserir(self, valor, endereco_memoria):
+        indice = self.funcao_hash(valor)         # Inserir referência na tabela hash.
+        if self.tabela[indice] is None:
+            self.tabela[indice] = []
+        self.tabela[indice].append((valor, endereco_memoria))
+
+    def buscar(self, valor):
+        indice = self.funcao_hash(valor)         # Método para buscar um valor usando a tabela hash.
+        if self.tabela[indice] is not None:
+            for chave, endereco in self.tabela[indice]:
+                if chave == valor:
+                    return endereco
+        return None                              # Retorna None se o valor não for encontrado.
 
     def povoar_catalogo(self, quantidade=1000):
         print(f"Povoando o catálogo com {quantidade} filmes...")
