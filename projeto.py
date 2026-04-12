@@ -1,7 +1,29 @@
 # Classe que representa um nó (filme) da lista encadeada
+class TabelaHash:
+        def __init__(self, tamanho):
+            self.tamanho = tamanho
+            self.tabela = [None] * tamanho           # Inicializa a tabela com vazios.
+    
+        def funcao_hash(self, valor):
+            return int(valor) % self.tamanho         # Função hash de resto inteiro.
+    
+        def inserir(self, valor, endereco_memoria):
+            indice = self.funcao_hash(valor)
+            if self.tabela[indice] is None:
+                self.tabela[indice] = []
+            self.tabela[indice].append((valor, endereco_memoria))
+    
+        def buscar(self, valor):
+            indice = self.funcao_hash(valor)
+            if self.tabela[indice] is not None:
+                for chave, endereco in self.tabela[indice]:
+                    if chave == valor:
+                        return endereco
+            return None     
 class No:
     def __init__(self, titulo, diretor, ano, genero):
         # Atributos do filme
+        self.id = id(self) 
         self.titulo = titulo
         self.diretor = diretor
         self.ano = ano
@@ -11,6 +33,7 @@ class No:
     
     # Método para exibir os dados do filme
     def mostrar_no(self):
+        print(f"ID: {self.id}")
         print(f"Título: {self.titulo}")
         print(f"Diretor: {self.diretor}")
         print(f"Ano: {self.ano}")
@@ -18,10 +41,12 @@ class No:
 
 # Classe que representa o catálogo (lista encadeada de filmes)
 class CatalogoFilmes:
-    def __init__(self):
+    def __init__(self, tamanho_hash=1000):
         # Inicialmente a lista está vazia
         self.primeiro = None
-
+        # Inicializa a tabela hash
+        self.hash = TabelaHash(tamanho_hash) 
+    
     def povoar_catalogo(self, quantidade=1000):
         print(f"Povoando o catálogo com {quantidade} filmes...")
         for i in range(1, quantidade + 1):
@@ -29,7 +54,6 @@ class CatalogoFilmes:
             diretor = f"Diretor {i}"
             ano = str(1900 + (i % 125))  # Gera anos variados entre 1900 e 2025
             genero = "Gênero de Teste"
-            
             self.Incluir(titulo, diretor, ano, genero)
         print("\nCarga de dados finalizada!")
 
@@ -90,7 +114,8 @@ class CatalogoFilmes:
                 return
 
             atual = atual.proximo
-
+        import timeit
+        #%timeit 
         # Caso não encontre
         print("Filme não encontrado.")
 
@@ -126,6 +151,7 @@ def menu():
 
     # Loop infinito até o usuário sair
     while True:
+
         print("\n" + "=" * 40)
         print("      CATÁLOGO DE FILMES")
         print("=" * 40)
@@ -133,6 +159,7 @@ def menu():
         print("2 - Excluir filme")
         print("3 - Pesquisar filme")
         print("4 - Relatório")
+        print("5 - Função Hash")
         print("0 - Sair")
         print("=" * 40)
 
@@ -166,6 +193,15 @@ def menu():
         elif opcao == "4":
             print()
             catalogo.Relatorio()
+        
+        elif opcao == "5":
+            print("\n--- FUNÇÃO HASH ---")
+            id = input("Digite o ID do filme para buscar: ").strip()
+            no = catalogo.buscar(int(id))
+            if no is not None:
+                print(f"Filme encontrado: {no.titulo}")
+            else:
+                print("ID não encontrado na tabela hash.")
 
         # Opção 0: sair do programa
         elif opcao == "0":
