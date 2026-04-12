@@ -1,3 +1,5 @@
+import timeit
+
 # Classe que representa um nó (filme) da lista encadeada
 class TabelaHash:
         def __init__(self, tamanho):
@@ -113,14 +115,12 @@ class CatalogoFilmes:
         while atual is not None:
             # Se encontrar o filme
             if (atual.titulo == titulo and atual.diretor == diretor):
-                print("Filme encontrado:\n")
+                print("\nFilme encontrado:\n")
                 atual.mostrar_no()
                 return
 
             atual = atual.proximo
-        import timeit
-        #%timeit 
-        # Caso não encontre
+        
         print("Filme não encontrado.")
 
     # Método para exibir todos os filmes do catálogo
@@ -178,6 +178,8 @@ def menu():
             ano = input("Ano: ").strip()
             genero = input("Gênero: ").strip()
             catalogo.Incluir(titulo, diretor, ano, genero)
+            tempo = timeit.timeit(lambda: catalogo.Incluir(titulo, diretor, ano, genero), number=1)
+            print(f"Tempo de execução: {tempo:.6f} segundos")
 
         # Opção 2: excluir filme
         elif opcao == "2":
@@ -185,6 +187,8 @@ def menu():
             titulo = input("Título do filme a excluir: ").strip()
             diretor = input("Diretor do filme: ").strip()
             catalogo.Excluir(titulo, diretor)
+            tempo = timeit.timeit(lambda: catalogo.Excluir(titulo, diretor), number=1)
+            print(f"Tempo de execução: {tempo:.6f} segundos")
 
         # Opção 3: pesquisar filme
         elif opcao == "3":
@@ -192,20 +196,26 @@ def menu():
             titulo = input("\nTítulo: ").strip()
             diretor = input("Diretor: ").strip()
             catalogo.Pesquisar(titulo, diretor)
+            tempo = timeit.timeit(lambda: catalogo.Pesquisar(titulo, diretor), number=1)
+            print(f"Tempo de execução: {tempo:.6f} segundos")
 
         # Opção 4: mostrar relatório
         elif opcao == "4":
             print()
             catalogo.Relatorio()
+            tempo = timeit.timeit(lambda: catalogo.Relatorio(), number=1)
+            print(f"Tempo de execução: {tempo:.6f} segundos")
         
         elif opcao == "5":
             print("\n--- FUNÇÃO HASH ---")
             filme_id = input("Digite o ID do filme para buscar: ").strip()
+            tempo = timeit.timeit(lambda: catalogo.hash.buscar(int(filme_id)), number=1)
             no = catalogo.hash.buscar(int(filme_id))
             if no is not None:
                 print(f"Filme encontrado: {no.titulo}")
             else:
                 print("ID não encontrado na tabela hash.")
+                print(f"Tempo de execução: {tempo:.6f} segundos")
 
         # Opção 0: sair do programa
         elif opcao == "0":
