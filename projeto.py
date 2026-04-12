@@ -12,7 +12,7 @@ class No:
     
     # Método para exibir os dados do filme
     def mostrar_no(self):
-        print(f"ID: {id(self)}")
+        print(f"ID: {self.id}")
         print(f"Título: {self.titulo}")
         print(f"Diretor: {self.diretor}")
         print(f"Ano: {self.ano}")
@@ -21,13 +21,17 @@ class No:
 
 # Classe que representa o catálogo (lista encadeada de filmes)
 class CatalogoFilmes:
-    def __init__(self):
+    def __init__(self, tamanho_hash=1000):
         # Inicialmente a lista está vazia
         self.primeiro = None
-    class TabelaHash:
-        def __init__(self, tamanho):               # Tabela hash que mapeia os valores para endereços de memória dos nós.
-            self.tamanho = tamanho
-            self.tabela = [None] * tamanho           # Inicializa a tabela com vazios.
+        # Inicializa a tabela hash
+        self.tamanho = tamanho_hash
+        self.tabela = [None] * tamanho_hash  # Inicializa a tabela com vazios.
+    
+    #class TabelaHash:
+        #def __init__(self, tamanho):               # Tabela hash que mapeia os valores para endereços de memória dos nós.
+           # self.tamanho = tamanho
+           # self.tabela = [None] * tamanho           # Inicializa a tabela com vazios.
 
     def funcao_hash(self, id):
         return int(id) % self.tamanho         # Função hash de resto inteiro que calcula o índice baseado no id.
@@ -49,8 +53,6 @@ class CatalogoFilmes:
     def povoar_catalogo(self, quantidade=1000):
         print(f"Povoando o catálogo com {quantidade} filmes...")
         for i in range(1, quantidade + 1):
-            for a in range(1000):
-                id = id + 1
             titulo = f"Filme Exemplo {i}"
             diretor = f"Diretor {i}"
             ano = str(1900 + (i % 125))  # Gera anos variados entre 1900 e 2025
@@ -199,9 +201,9 @@ def menu():
         elif opcao == "5":
             print("\n--- FUNÇÃO HASH ---")
             id = input("Digite o ID do filme para buscar: ").strip()
-            endereco = catalogo.buscar(id)
-            if endereco is not None:
-                print(f"Endereço de memória encontrado: {endereco}")
+            no = catalogo.buscar(int(id))
+            if no is not None:
+                print(f"Filme encontrado: {no.titulo}")
             else:
                 print("ID não encontrado na tabela hash.")
 
