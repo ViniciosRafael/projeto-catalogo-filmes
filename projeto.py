@@ -48,7 +48,7 @@ class CatalogoFilmes:
         self.hash = TabelaHash(tamanho_hash) 
     
     def povoar_catalogo(self, quantidade=1000):
-        print(f"Povoando o catálogo com {quantidade} filmes...")
+        #print(f"Povoando o catálogo com {quantidade} filmes...")
         for i in range(1, quantidade + 1):
             titulo = f"Filme Exemplo {i}"
             diretor = f"Diretor {i}"
@@ -152,11 +152,10 @@ class CatalogoFilmes:
 def menu():
     # Cria uma instância do catálogo
     catalogo = CatalogoFilmes()
+    catalogo.povoar_catalogo(1000)
 
     # Loop infinito até o usuário sair
     while True:
-        catalogo = CatalogoFilmes()
-        catalogo.povoar_catalogo(1000)
         print("\n" + "=" * 40)
         print("      CATÁLOGO DE FILMES")
         print("=" * 40)
