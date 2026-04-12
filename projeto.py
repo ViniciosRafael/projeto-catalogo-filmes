@@ -161,6 +161,7 @@ def menu():
         print("2 - Excluir filme")
         print("3 - Pesquisar filme")
         print("4 - Relatório")
+        print("5 - Função Hash")
         print("0 - Sair")
         print("=" * 40)
 
@@ -194,6 +195,15 @@ def menu():
         elif opcao == "4":
             print()
             catalogo.Relatorio()
+        
+        elif opcao == "5":
+            print("\n--- FUNÇÃO HASH ---")
+            id = input("Digite o ID do filme para buscar: ").strip()
+            endereco = catalogo.buscar(id)
+            if endereco is not None:
+                print(f"Endereço de memória encontrado: {endereco}")
+            else:
+                print("ID não encontrado na tabela hash.")
 
         # Opção 0: sair do programa
         elif opcao == "0":
