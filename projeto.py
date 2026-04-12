@@ -1,4 +1,25 @@
 # Classe que representa um nó (filme) da lista encadeada
+class TabelaHash:
+        def __init__(self, tamanho):
+            self.tamanho = tamanho
+            self.tabela = [None] * tamanho           # Inicializa a tabela com vazios.
+    
+        def funcao_hash(self, valor):
+            return int(valor) % self.tamanho         # Função hash de resto inteiro.
+    
+        def inserir(self, valor, endereco_memoria):
+            indice = self.funcao_hash(valor)
+            if self.tabela[indice] is None:
+                self.tabela[indice] = []
+            self.tabela[indice].append((valor, endereco_memoria))
+    
+        def buscar(self, valor):
+            indice = self.funcao_hash(valor)
+            if self.tabela[indice] is not None:
+                for chave, endereco in self.tabela[indice]:
+                    if chave == valor:
+                        return endereco
+            return None     
 class No:
     def __init__(self, titulo, diretor, ano, genero):
         # Atributos do filme
@@ -25,30 +46,7 @@ class CatalogoFilmes:
         # Inicialmente a lista está vazia
         self.primeiro = None
         # Inicializa a tabela hash
-        self.tamanho = tamanho_hash
-        self.tabela = [None] * tamanho_hash  # Inicializa a tabela com vazios.
-    
-    class TabelaHash:
-        def __init__(self, tamanho):
-            self.tamanho = tamanho
-            self.tabela = [None] * tamanho           # Inicializa a tabela com vazios.
-    
-        def funcao_hash(self, valor):
-            return int(valor) % self.tamanho         # Função hash de resto inteiro.
-    
-        def inserir(self, valor, endereco_memoria):
-            indice = self.funcao_hash(valor)
-            if self.tabela[indice] is None:
-                self.tabela[indice] = []
-            self.tabela[indice].append((valor, endereco_memoria))
-    
-        def buscar(self, valor):
-            indice = self.funcao_hash(valor)
-            if self.tabela[indice] is not None:
-                for chave, endereco in self.tabela[indice]:
-                    if chave == valor:
-                        return endereco
-            return None      
+        self.hash = TabelaHash(tamanho_hash) 
     
     def povoar_catalogo(self, quantidade=1000):
         print(f"Povoando o catálogo com {quantidade} filmes...")
