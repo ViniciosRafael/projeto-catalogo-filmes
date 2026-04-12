@@ -16,7 +16,6 @@ class No:
         print(f"Ano: {self.ano}")
         print(f"Gênero: {self.genero}")
 
-
 # Classe que representa o catálogo (lista encadeada de filmes)
 class CatalogoFilmes:
     def __init__(self):
@@ -120,7 +119,6 @@ class CatalogoFilmes:
         print("=" * 40)
         print(f"Total de filmes: {contador - 1}")
 
-
 # Função principal com menu interativo
 def menu():
     # Cria uma instância do catálogo
@@ -177,7 +175,6 @@ def menu():
         # Caso digite uma opção inválida
         else:
             print("\nOpção inválida. Tente novamente.")
-
 
 # Executa o programa
 menu()
