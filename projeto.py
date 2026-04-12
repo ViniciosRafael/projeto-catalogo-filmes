@@ -215,7 +215,7 @@ def menu():
                 print(f"Filme encontrado: {no.titulo}")
             else:
                 print("ID não encontrado na tabela hash.")
-                print(f"Tempo de execução: {tempo:.6f} segundos")
+            print(f"Tempo de execução: {tempo:.6f} segundos")
 
         # Opção 0: sair do programa
         elif opcao == "0":
