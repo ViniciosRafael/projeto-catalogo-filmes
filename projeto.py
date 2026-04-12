@@ -75,7 +75,7 @@ class CatalogoFilmes:
 
         self.hash.inserir(novo_filme.id, novo_filme)
 
-        print("Filme incluído com sucesso!")
+        #print("Filme incluído com sucesso!")
 
     # Método para excluir um filme pelo título e diretor
     def Excluir(self, titulo, diretor):
