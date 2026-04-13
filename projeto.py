@@ -1,160 +1,124 @@
 import timeit
-
-# Classe que representa um nó (filme) da lista encadeada
+ 
 class TabelaHash:
-        def __init__(self, tamanho):
-            self.tamanho = tamanho
-            self.tabela = [None] * tamanho           # Inicializa a tabela com vazios.
-    
-        def funcao_hash(self, valor):
-            return int(valor) % self.tamanho         # Função hash de resto inteiro.
-    
-        def inserir(self, valor, endereco_memoria):
-            indice = self.funcao_hash(valor)
-            if self.tabela[indice] is None:
-                self.tabela[indice] = []
-            self.tabela[indice].append((valor, endereco_memoria))
-    
-        def buscar(self, valor):
-            indice = self.funcao_hash(valor)
-            if self.tabela[indice] is not None:
-                for chave, endereco in self.tabela[indice]:
-                    if chave == valor:
-                        return endereco
-            return None     
+    def __init__(self, tamanho):
+        self.tamanho = tamanho
+        self.tabela = [None] * tamanho
+ 
+    def funcao_hash(self, valor):
+        return int(valor) % self.tamanho
+ 
+    def inserir(self, valor, no):
+        indice = self.funcao_hash(valor)
+        if self.tabela[indice] is None:
+            self.tabela[indice] = []
+        self.tabela[indice].append((valor, no))
+ 
+    def buscar(self, valor):
+        indice = self.funcao_hash(valor)
+        if self.tabela[indice] is not None:
+            for chave, no in self.tabela[indice]:
+                if chave == valor:
+                    return no
+        return None
+ 
+    def remover(self, valor):
+        indice = self.funcao_hash(valor)
+        if self.tabela[indice] is not None:
+            self.tabela[indice] = [(c, n) for c, n in self.tabela[indice] if c != valor]
+ 
+ 
 class No:
     def __init__(self, titulo, diretor, ano, genero):
-        # Atributos do filme
-        self.id = id(self) 
+        self.id = id(self)
         self.titulo = titulo
         self.diretor = diretor
         self.ano = ano
         self.genero = genero
-        # Ponteiro para o próximo nó da lista
         self.proximo = None
-    
-    # Método para exibir os dados do filme
+ 
     def mostrar_no(self):
         print(f"ID: {self.id}")
         print(f"Título: {self.titulo}")
         print(f"Diretor: {self.diretor}")
         print(f"Ano: {self.ano}")
         print(f"Gênero: {self.genero}")
-
-# Classe que representa o catálogo (lista encadeada de filmes)
+ 
+ 
 class CatalogoFilmes:
     def __init__(self, tamanho_hash=1000):
-        # Inicialmente a lista está vazia
         self.primeiro = None
-        # Inicializa a tabela hash
-        self.hash = TabelaHash(tamanho_hash) 
-    
+        self.hash = TabelaHash(tamanho_hash)
+ 
     def povoar_catalogo(self, quantidade=1000):
-        #print(f"Povoando o catálogo com {quantidade} filmes...")
         for i in range(1, quantidade + 1):
             titulo = f"Filme Exemplo {i}"
             diretor = f"Diretor {i}"
-            ano = str(1900 + (i % 125))  # Gera anos variados entre 1900 e 2025
+            ano = str(1900 + (i % 125))
             genero = "Gênero de Teste"
             self.Incluir(titulo, diretor, ano, genero)
-        print("\nCarga de dados finalizada!")
-
-    # Método para incluir um novo filme no final da lista
+        print("Carga de dados finalizada!")
+ 
     def Incluir(self, titulo, diretor, ano, genero):
-        # Cria um novo nó com os dados informados
         novo_filme = No(titulo, diretor, ano, genero)
-
-        # Se a lista estiver vazia, o novo filme vira o primeiro
         if self.primeiro is None:
             self.primeiro = novo_filme
         else:
-            # Percorre até o último nó
             atual = self.primeiro
             while atual.proximo is not None:
                 atual = atual.proximo
-            # Liga o último nó ao novo filme
             atual.proximo = novo_filme
-
         self.hash.inserir(novo_filme.id, novo_filme)
-
-        #print("Filme incluído com sucesso!")
-
-    # Método para excluir um filme pelo título e diretor
+        print("Filme incluído com sucesso!")
+ 
     def Excluir(self, titulo, diretor):
         atual = self.primeiro
         anterior = None
-
-        # Percorre a lista
         while atual is not None:
-            # Verifica se encontrou o filme
-            if (atual.titulo == titulo and atual.diretor == diretor):
-                # Se for o primeiro nó
+            if atual.titulo == titulo and atual.diretor == diretor:
                 if anterior is None:
                     self.primeiro = atual.proximo
                 else:
-                    # "Pula" o nó atual, removendo-o da lista
                     anterior.proximo = atual.proximo
-
                 self.hash.remover(atual.id)
-
                 print("Filme excluído com sucesso!")
                 return
-
-            # Avança na lista
             anterior = atual
             atual = atual.proximo
-
-        # Caso não encontre o filme
         print("Filme não encontrado.")
-
-    # Método para pesquisar um filme
+ 
+    # SEM print aqui — só retorna o nó
     def Pesquisar(self, titulo, diretor):
         atual = self.primeiro
-
-        # Percorre a lista
         while atual is not None:
-            # Se encontrar o filme
-            if (atual.titulo == titulo and atual.diretor == diretor):
-                print("\nFilme encontrado:\n")
-                atual.mostrar_no()
-                return
-
+            if atual.titulo == titulo and atual.diretor == diretor:
+                return atual
             atual = atual.proximo
-        
-        print("Filme não encontrado.")
-
-    # Método para exibir todos os filmes do catálogo
+        return None
+ 
     def Relatorio(self):
-        # Verifica se a lista está vazia
         if self.primeiro is None:
             print("Nenhum filme cadastrado no catálogo.")
             return
-
         print("=" * 40)
         print("       CATÁLOGO DE FILMES")
         print("=" * 40)
-
         atual = self.primeiro
         contador = 1
-
-        # Percorre todos os nós da lista
         while atual is not None:
             print(f"\nFilme #{contador}")
             print("-" * 40)
             atual.mostrar_no()
             atual = atual.proximo
             contador += 1
-
         print("=" * 40)
         print(f"Total de filmes: {contador - 1}")
-
-# Função principal com menu interativo
+ 
+ 
 def menu():
-    # Cria uma instância do catálogo
     catalogo = CatalogoFilmes()
     catalogo.povoar_catalogo(1000)
-
-    # Loop infinito até o usuário sair
+ 
     while True:
         print("\n" + "=" * 40)
         print("      CATÁLOGO DE FILMES")
@@ -166,46 +130,43 @@ def menu():
         print("5 - Função Hash")
         print("0 - Sair")
         print("=" * 40)
-
-        # Lê a opção do usuário
+ 
         opcao = input("Escolha uma opção: ").strip()
-
-        # Opção 1: incluir filme
+ 
         if opcao == "1":
             print("\n--- INCLUIR FILME ---")
             titulo = input("Título: ").strip()
             diretor = input("Diretor: ").strip()
             ano = input("Ano: ").strip()
             genero = input("Gênero: ").strip()
-            catalogo.Incluir(titulo, diretor, ano, genero)
             tempo = timeit.timeit(lambda: catalogo.Incluir(titulo, diretor, ano, genero), number=1)
             print(f"Tempo de execução: {tempo:.6f} segundos")
-
-        # Opção 2: excluir filme
+ 
         elif opcao == "2":
             print("\n--- EXCLUIR FILME ---")
             titulo = input("Título do filme a excluir: ").strip()
             diretor = input("Diretor do filme: ").strip()
-            catalogo.Excluir(titulo, diretor)
             tempo = timeit.timeit(lambda: catalogo.Excluir(titulo, diretor), number=1)
             print(f"Tempo de execução: {tempo:.6f} segundos")
-
-        # Opção 3: pesquisar filme
+ 
         elif opcao == "3":
             print("\n--- PESQUISAR FILME ---")
             titulo = input("\nTítulo: ").strip()
             diretor = input("Diretor: ").strip()
-            catalogo.Pesquisar(titulo, diretor)
             tempo = timeit.timeit(lambda: catalogo.Pesquisar(titulo, diretor), number=1)
+            no = catalogo.Pesquisar(titulo, diretor)
+            if no is not None:
+                print("\nFilme encontrado:\n")
+                no.mostrar_no()
+            else:
+                print("Filme não encontrado.")
             print(f"Tempo de execução: {tempo:.6f} segundos")
-
-        # Opção 4: mostrar relatório
+ 
         elif opcao == "4":
             print()
-            catalogo.Relatorio()
             tempo = timeit.timeit(lambda: catalogo.Relatorio(), number=1)
             print(f"Tempo de execução: {tempo:.6f} segundos")
-        
+ 
         elif opcao == "5":
             print("\n--- FUNÇÃO HASH ---")
             filme_id = input("Digite o ID do filme para buscar: ").strip()
@@ -216,15 +177,13 @@ def menu():
             else:
                 print("ID não encontrado na tabela hash.")
             print(f"Tempo de execução: {tempo:.6f} segundos")
-
-        # Opção 0: sair do programa
+ 
         elif opcao == "0":
             print("\nSaindo... Até logo!")
             break
-
-        # Caso digite uma opção inválida
+ 
         else:
             print("\nOpção inválida. Tente novamente.")
-
-# Executa o programa
+ 
+ 
 menu()
