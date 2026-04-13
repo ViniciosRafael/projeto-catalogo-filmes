@@ -27,7 +27,7 @@ class TabelaHash:
         if self.tabela[indice] is not None:
             self.tabela[indice] = [(c, n) for c, n in self.tabela[indice] if c != valor]
  
- 
+ # Classe que representa um nó (filme) da lista
 class No:
     def __init__(self, titulo, diretor, ano, genero):
         self.id = id(self)
