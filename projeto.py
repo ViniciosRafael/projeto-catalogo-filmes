@@ -2,6 +2,7 @@ import timeit
  
 class TabelaHash:
     def __init__(self, tamanho):
+        # Define o tamanho da tabela e cria uma lista de 'tamanho' posições, todas vazias
         self.tamanho = tamanho
         self.tabela = [None] * tamanho
  
@@ -10,16 +11,17 @@ class TabelaHash:
  
     def inserir(self, valor, no):
         indice = self.funcao_hash(valor)
-        if self.tabela[indice] is None:
+        if self.tabela[indice] is None: # Se a posição ainda está vazia, inicializa com uma lista vazia(tratamento de colisão por encadeamento)
             self.tabela[indice] = []
         self.tabela[indice].append((valor, no))
  
     def buscar(self, valor):
+        # Calcula o índice esperado para o valor buscado
         indice = self.funcao_hash(valor)
         if self.tabela[indice] is not None:
             for chave, no in self.tabela[indice]:
                 if chave == valor:
-                    return no
+                    return no # Retorna o nó correspondente à chave
         return None
  
     def remover(self, valor):
@@ -35,9 +37,9 @@ class No:
         self.diretor = diretor
         self.ano = ano
         self.genero = genero
-        self.proximo = None
+        self.proximo = None # Ponteiro para o próximo nó
  
-    def mostrar_no(self):
+    def mostrar_no(self): # Exibe os dados do filme de forma formatada
         print(f"ID: {self.id}")
         print(f"Título: {self.titulo}")
         print(f"Diretor: {self.diretor}")
