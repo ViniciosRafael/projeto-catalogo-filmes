@@ -94,11 +94,19 @@ def merge_sort(numeros):
     return resultado, comparacoes[0], trocas[0]
 
 
+def formatar_tempo(segundos):
+    horas = int(segundos // 3600)
+    minutos = int((segundos % 3600) // 60)
+    segs = int(segundos % 60)
+    milissegundos = int((segundos % 1) * 1000)
+    return f"{horas:02}:{minutos:02}:{segs:02}:{milissegundos:03}"
+
+
 def exibir(nome, func, numeros):
     _, comparacoes, trocas = func(numeros)
     tempo = timeit.timeit(lambda: func(numeros), number=1)
     print(f"{nome}:")
-    print(f"  Tempo:       {tempo:.6f}s")
+    print(f"  Tempo:       {tempo:.6f}s e {formatar_tempo(tempo)}")
     print(f"  Comparações: {comparacoes}")
     print(f"  Trocas:      {trocas}")
     print()
