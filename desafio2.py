@@ -65,7 +65,7 @@ def mesclar(esquerda, direita):
     return np.array(ordenado + e + d)
 
 
-resultado_selection  = selection_sort(numeros)
-resultado_insertion  = insertion_sort(numeros)
-resultado_shell      = shell_sort(numeros)
-resultado_merge      = merge_sort(numeros)
+selection_sort(numeros)
+insertion_sort(numeros)
+shell_sort(numeros)
+merge_sort(numeros)
