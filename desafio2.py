@@ -2,7 +2,7 @@ import numpy as np
 from numpy import random as rd
 import timeit
 
-numeros = rd.random.randint(0, 100000, size=1000)
+numeros = rd.randint(0, 100000, size=1000)
 
 
 def selection_sort(numeros):
