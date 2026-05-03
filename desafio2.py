@@ -4,8 +4,8 @@ from numpy import random as rd
 numeros = np.random.randint(0, 100000, size=50000)
 
 
-def selection_sort(vetor):
-    vetor = vetor.copy()
+def selection_sort(numeros):
+    vetor = numeros.copy()
     n = len(vetor)
     for i in range(n):
         min_idx = i
@@ -16,8 +16,8 @@ def selection_sort(vetor):
     return vetor
 
 
-def insertion_sort(vetor):
-    vetor = vetor.copy()
+def insertion_sort(numeros):
+    vetor = numeros.copy()
     n = len(vetor)
     for i in range(1, n):
         elemento = vetor[i]
@@ -29,8 +29,8 @@ def insertion_sort(vetor):
     return vetor
 
 
-def shell_sort(vetor):
-    vetor = vetor.copy()
+def shell_sort(numeros):
+    vetor = numeros.copy()
     n = len(vetor)
     intervalo = n // 2
     while intervalo > 0:
@@ -45,12 +45,12 @@ def shell_sort(vetor):
     return vetor
 
 
-def merge_sort(vetor):
-    if len(vetor) <= 1:
-        return vetor
-    meio = len(vetor) // 2
-    esquerda = merge_sort(vetor[:meio])
-    direita  = merge_sort(vetor[meio:])
+def merge_sort(numeros):
+    if len(numeros) <= 1:
+        return numeros
+    meio = len(numeros) // 2
+    esquerda = merge_sort(numeros[:meio])
+    direita  = merge_sort(numeros[meio:])
     return mesclar(esquerda, direita)
 
 def mesclar(esquerda, direita):
@@ -63,9 +63,3 @@ def mesclar(esquerda, direita):
         else:
             ordenado.append(d.pop(0))
     return np.array(ordenado + e + d)
-
-
-selection_sort(numeros)
-insertion_sort(numeros)
-shell_sort(numeros)
-merge_sort(numeros)
