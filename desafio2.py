@@ -1,5 +1,7 @@
 import numpy as np
-import random as rd
+from numpy import random as rd
 
 
-numeros = [rd.randint(0, 1_000_000) for _ in range(50000)]
+# Gera 50.000 números inteiros aleatórios entre 0 e 100.000
+numeros = np.random.randint(0, 100000, size=50000)
+
