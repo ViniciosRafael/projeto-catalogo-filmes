@@ -1,7 +1,8 @@
 import numpy as np
 from numpy import random as rd
+import timeit
 
-numeros = np.random.randint(0, 100000, size=50000)
+numeros = rd.random.randint(0, 100000, size=1000)
 
 
 def selection_sort(numeros):
@@ -63,3 +64,12 @@ def mesclar(esquerda, direita):
         else:
             ordenado.append(d.pop(0))
     return np.array(ordenado + e + d)
+
+print ("Selection Sort:", selection_sort)
+print (timeit.timeit('selection_sort(numeros)', globals=globals(), number=1), "segundos")
+print ("Insertion Sort:", insertion_sort)
+print (timeit.timeit('insertion_sort(numeros)', globals=globals(), number=1), "segundos")
+print ("Shell Sort:", shell_sort)
+print (timeit.timeit('shell_sort(numeros)', globals=globals(), number=1), "segundos")
+print ("Merge Sort:", merge_sort)
+print (timeit.timeit('merge_sort(numeros)', globals=globals(), number=1), "segundos")
