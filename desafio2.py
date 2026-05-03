@@ -68,27 +68,3 @@ def mesclar(esquerda, direita):
         else:
             ordenado.append(d.pop(0))
     return np.array(ordenado + e + d)
-
-
-# ── Teste ──────────────────────────────────────────────────────────────────────
-def teste(vetor, metodo):
-    metodos = {
-        "selection_sort": selection_sort,
-        "insertion_sort": insertion_sort,
-        "shell_sort":     shell_sort,
-        "merge_sort":     merge_sort,
-    }
-    if metodo not in metodos:
-        print(f"Método '{metodo}' não reconhecido.")
-        return
-
-    print(f"[{metodo}]")
-    print("Entrada (primeiros 10):", vetor[:10])
-    resultado = metodos[metodo](vetor)
-    print("Saída   (primeiros 10):", resultado[:10])
-    return resultado
-
-
-# ── Execução ───────────────────────────────────────────────────────────────────
-teste(numeros, "shell_sort")
-teste(numeros, "merge_sort")
