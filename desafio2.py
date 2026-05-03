@@ -65,6 +65,7 @@ def mesclar(esquerda, direita):
             ordenado.append(d.pop(0))
     return np.array(ordenado + e + d)
 
+print("Tamanho do vetor:", numeros.__len__())
 print(timeit.timeit(lambda: selection_sort(numeros), number=1))
 print(timeit.timeit(lambda: insertion_sort(numeros), number=1))
 print(timeit.timeit(lambda: shell_sort(numeros), number=1))
