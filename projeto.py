@@ -81,7 +81,7 @@ class CatalogoFilmes:
                 atual = atual.proximo
             atual.proximo = novo_filme
         self.hash.inserir(novo_filme.id, novo_filme)
-        print("Filme incluído com sucesso!")
+        #print("Filme incluído com sucesso!")
  
     def Excluir(self, titulo, diretor):
         # Percorre a lista para encontrar e remover o filme pelo título e diretor
