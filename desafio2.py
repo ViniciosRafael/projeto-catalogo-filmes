@@ -2,8 +2,12 @@ import numpy as np
 from numpy import random as rd
 import timeit
 
+# Gera um array de 1000 números inteiros aleatórios entre 0 e 99999
 numeros = rd.randint(0, 100000, size=1000)
 
+# Big-O:
+#   Melhor caso:  O(n²)
+#   Pior caso:    O(n²)
 
 def selection_sort(numeros):
     vetor = numeros.copy()
@@ -11,16 +15,19 @@ def selection_sort(numeros):
     comparacoes = 0
     trocas = 0
     for i in range(n):
-        min_idx = i
+        min_idx = i # assume que o mínimo do trecho está na posição i
         for j in range(i + 1, n):
             comparacoes += 1
             if vetor[j] < vetor[min_idx]:
-                min_idx = j
+                min_idx = j # atualiza o índice do mínimo encontrado
         if min_idx != i:
-            trocas += 1
+            trocas += 1 # só conta troca se o mínimo não estava já no lugar
         vetor[i], vetor[min_idx] = vetor[min_idx], vetor[i]
     return vetor, comparacoes, trocas
 
+# Big-O:
+#   Melhor caso:  O(n)   — vetor já ordenado; o while interno nunca executa
+#   Pior caso:    O(n²)  — vetor em ordem inversa
 
 def insertion_sort(numeros):
     vetor = numeros.copy()
@@ -28,42 +35,49 @@ def insertion_sort(numeros):
     comparacoes = 0
     trocas = 0
     for i in range(1, n):
-        elemento = vetor[i]
+        elemento = vetor[i] # elemento a ser inserido na posição correta
         j = i - 1
         while j >= 0:
             comparacoes += 1
             if elemento < vetor[j]:
-                vetor[j + 1] = vetor[j]
+                vetor[j + 1] = vetor[j] # desloca elemento maior para a direita
                 trocas += 1
                 j -= 1
             else:
-                break
-        vetor[j + 1] = elemento
+                break # posição correta encontrada
+        vetor[j + 1] = elemento # insere o elemento na posição correta
     return vetor, comparacoes, trocas
 
+# Big-O:
+#   Melhor caso:  O(n log n) — com sequência de intervalos otimizada
+#   Pior caso:    O(n²)
 
 def shell_sort(numeros):
     vetor = numeros.copy()
     n = len(vetor)
-    intervalo = n // 2
+    intervalo = n // 2 # gap inicial: metade do tamanho do vetor
     comparacoes = 0
     trocas = 0
     while intervalo > 0:
+        # Aplica Insertion Sort com o gap atual em todas as sub-listas
         for i in range(intervalo, n):
             temp = vetor[i]
             j = i
             while j >= intervalo:
                 comparacoes += 1
                 if vetor[j - intervalo] > temp:
-                    vetor[j] = vetor[j - intervalo]
+                    vetor[j] = vetor[j - intervalo] # desloca elemento
                     trocas += 1
                     j -= intervalo
                 else:
                     break
-            vetor[j] = temp
-        intervalo //= 2
+            vetor[j] = temp # insere o elemento na posição correta do sub-array
+        intervalo //= 2 # reduz o gap pela metade
     return vetor, comparacoes, trocas
 
+#   Big-O:
+#   Melhor caso:  O(n log n)
+#   Pior caso:    O(n log n)
 
 def merge_sort(numeros):
     comparacoes = [0]
@@ -71,7 +85,7 @@ def merge_sort(numeros):
 
     def _merge_sort(arr):
         if len(arr) <= 1:
-            return arr
+            return arr # caso base: array com 0 ou 1 elemento já está ordenado
         meio = len(arr) // 2
         esquerda = _merge_sort(arr[:meio])
         direita = _merge_sort(arr[meio:])
@@ -84,17 +98,17 @@ def merge_sort(numeros):
         while e and d:
             comparacoes[0] += 1
             if e[0] <= d[0]:
-                ordenado.append(e.pop(0))
+                ordenado.append(e.pop(0)) # elemento da esquerda é menor
             else:
-                ordenado.append(d.pop(0))
+                ordenado.append(d.pop(0)) # elemento da direita é menor
                 trocas[0] += 1
         return np.array(ordenado + e + d)
 
-    resultado = _merge_sort(numeros)
+    resultado = _merge_sort(numeros) # concatena sobras
     return resultado, comparacoes[0], trocas[0]
 
 
-def formatar_tempo(segundos):
+def formatar_tempo(segundos): # Converte um valor em segundos (float) para o formato HH:MM:SS:mmm.
     horas = int(segundos // 3600)
     minutos = int((segundos % 3600) // 60)
     segs = int(segundos % 60)
@@ -102,7 +116,7 @@ def formatar_tempo(segundos):
     return f"{horas:02}:{minutos:02}:{segs:02}:{milissegundos:03}"
 
 
-def exibir(nome, func, numeros):
+def exibir(nome, func, numeros): #  Executa e exibe as métricas de um algoritmo de ordenação
     _, comparacoes, trocas = func(numeros)
     tempo = timeit.timeit(lambda: func(numeros), number=1)
     print(f"{nome}:")
