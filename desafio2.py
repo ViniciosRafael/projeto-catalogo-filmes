@@ -2,8 +2,8 @@ import numpy as np
 from numpy import random as rd
 import timeit
 
-# Gera um array de 1000 números inteiros aleatórios entre 0 e 99999
 numeros = rd.randint(0, 100000, size=1000)
+#gera o vetor uma única vez para garantir que todos os algoritmos ordenem o mesmo conjunto de dados
 
 # Big-O:
 #   Melhor caso:  O(n²)
